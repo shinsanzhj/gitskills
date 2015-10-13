@@ -1,0 +1,94 @@
+GIT
+	简介
+		git的诞生
+		集中式VS分布式
+			不用联网
+			没有中央服务器
+			每台电脑都有一份完整的版本
+	安装git
+		linux上安装git
+		windows上安装git
+			下载msysgit并且安装
+			安装完还要设置用户名和邮箱
+	创建版本库
+		初始化git仓库
+			创建一个空目录
+			定位到该目录，用git init命令把该目录变成git管理的目录
+		添加文件到git仓库
+			把要进行管理的文件添加到该目录下，或者该目录下的子目录（文件编码最好统一UTF-8）
+			用git add命令把文件添加到git中（可以多次）
+			用git commit -m "提交意见"命令把本次的修改提交到git中
+--------------------------------------------------------------------------------------------截至2015/10/13 02:01:00-------------------------------			
+	时空穿梭机
+			查看git状态用 git status命令
+			查看文件修改的内容用git diff命令，如果想把文件的修改还原回去，则可以用git checkout命令
+			用git add命令把文件的阶段状态修改到准备提交（把本次修改从工作区推送到暂存区）
+			如果git add之后想撤销准备提交的阶段状态，那么用git reset HEAD命令就可以回复到git add命令前的阶段状态（把本次修改从暂存区撤回工作区）
+		版本回退
+			git reset --hard head^^|head~4|12345来指定git的当前版本
+			可以用git log来查看该条线上的历史提交日志
+			可以用git reflog来查看历史commit id
+			如果一个文件是untrack（未对其执行过git add命令），则就算是版本回退，该文件还是会存在的
+		工作区和暂存区
+			工作区：learngit目录下，除了.git文件夹之外的空间就是工作区
+			版本库：.git文件夹
+			暂存区：.git文件夹中的index文件
+				git add命令其实是把工作区的内容添加到暂存区
+				git commit命令把暂存区的内容提交到对应的分支上
+		 管理修改
+			git管理的是修改，而不是文件
+			第一次修改->git add->第二次修改->git commit：这个时候第二次修改并没有被提交到版本库中
+		撤销修改
+			git checkout -- file：撤销工作区文件的修改（要加--，这样就不会切换到另外一个分支上）
+			git reset head file：撤销暂存区的修改，把暂存区的修改转移回工作区
+			如果错误的修改提交了，那就只能回退版本，如果修改提交到远程版本库，那就没办法回退了，远程版本库肯定能找得到
+		删除文件
+	远程仓库
+		简介
+			gitHub
+				本地生成私钥和公钥，然后把公钥添加到gitHub账号下
+				ssh-keygen -t rsa -C "mindofzhj@163.com"，命令执行完会在windows用户目录下的.ssh目录下添加对应的公钥和私钥文件
+				为什么github要用ssh key
+				SSH、私钥公钥、gitHub中添加自己的公钥
+			私有git仓库托管服务器
+				如何搭建自己的git服务器
+		添加远程仓库（本地先有库，后有远程库）
+			gitHub添加一个仓库
+			本地创建一个同名的git仓库
+			把本地git仓库中的文件推送到远程仓库
+				git remote add origin git@github.com:shinsanzhj/learngit.git（本地关联远程仓库）
+				git push -u origin master（本地仓库内容推送到远程仓库）
+				git push origin master（推送最新修改，第一次推送才要加上-u参数）
+			注意：
+				1.远程仓库名要和本地仓库名同名
+				2.本地仓库多分支无法推送，要先解决分支问题（合并或删除）
+		从远程库克隆（现有远程库，然后克隆到本地）
+			git clone git@github.com:shinsanzhj/learngit.git
+			git clone https://github.com/shinsanzhj/gitskills.git
+	分支管理
+		创建dev分支
+			git checkout -b dev
+			相当于下面两条命令
+				git branch dev（新建分支）
+				git checkout dev（切换分支）
+		查看分支
+			git branch
+		合并某分支到当前分支
+			git merge dev
+		删除分支
+			git branch -d dev
+命令
+	git init
+	git add
+	git commit
+	git status
+	git checkout
+	git diff
+	git reset HEAD
+		可以在执行了git add之后执行，这样就等于取消了git add
+		再执行git checkout，就等于把该文件相对于上一次commit修改的内容也撤销掉
+	git reset --hard head^^
+	git reset --hard head~4
+	git reset --hard 12345
+	git log
+	git reflog
