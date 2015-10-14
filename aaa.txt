@@ -11,6 +11,8 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 这个是主线添加的内容，检测冲突
 ISSUE-100修改的bug
 ddddddddddddddddd
+------------------
+用户2修改内容
 ----------------
 用户1修改
 ----啊啊啊啊啊啊啊啊啊啊啊啊
